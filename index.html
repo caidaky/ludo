@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Chessboard</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    .chessboard {
+      display: grid;
+      grid-template-columns: repeat(15, 1fr);
+      grid-template-rows: repeat(15, 1fr);
+      width: 90vmin; /* 90% of the smaller side (either height or width) of the viewport */
+      height: 90vmin; /* Keeping the chessboard square by making height equal to width */
+      border: 3px solid rgba(0, 0, 0, 0.5);
+    }
+    .square {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3vmin; /* Responsive font size */
+      cursor: pointer;
+       border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+    .cont {/*RED*/
+      position: absolute;
+     width:36vmin;
+     height:36vmin;
+     background-color: #FC1A01;
+     z-index: 10;
+
+    }.cont2 {/*BLUE*/
+      position: absolute;
+      top:54vmin;
+     width:36vmin;
+     height:36vmin;
+     background-color: #1594C9;
+  
+     z-index: 9;
+    }.cont3 {/*YELLOW*/
+      position: absolute;
+      left: 54vmin;
+     width:36vmin;
+     height:36vmin;
+     background-color: #FCE000;
+     z-index: 10;
+    }.cont4 {/*GREEN*/
+      position: absolute;
+      left: 54vmin;
+     width:36vmin;
+     height:36vmin;
+     background-color: #28CE6C;
+     z-index: 10;
+    }
+     .carre {
+  position: absolute; /* Positions relative to the parent’s top-left */
+  top: 50%; /* Aligns with the parent's top */
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 70%; /* La taille que tu veux pour l’enfant */
+    height: 70%;
+  border: 2px solid #705655;
+  background-color: #FFF;
+  z-index: 15; /* Ensures it's above other elements */
+
+  display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+}
+.psquare {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3vmin; /* Responsive font size */
+      cursor: pointer;
+       
+    }
+
+    .redcircle{
+      background-color: #FC1A01;
+      width: 70%;
+      height: 70%;
+      border-radius: 100%;
+    }.greencircle{
+      background-color: #28CE6C;
+      width: 70%;
+      height: 70%;
+      border-radius: 100%;
+    }.bluecircle{
+      background-color: #1594C9;
+      width: 70%;
+      height: 70%;
+      border-radius: 100%;
+    }.yellowcircle{
+      background-color: #FCE000;
+      width: 70%;
+      height: 70%;
+      border-radius: 100%;
+      
+    }
+
+    .bordered {
+  position: absolute; /* Positions relative to the parent’s top-left */
+  top: 50%; /* Aligns with the parent's top */
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 97%; /* La taille que tu veux pour l’enfant */
+    height: 97%;
+  border: 5px solid #074E84;
+  background-color: #FC1A01;
+  z-index: 14; /* Ensures it's above other elements */
+}.borderblue {
+  position: absolute; /* Positions relative to the parent’s top-left */
+  top: 50%; /* Aligns with the parent's top */
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 97%; /* La taille que tu veux pour l’enfant */
+    height: 97%;
+  border: 5px solid #074E84;
+  background-color:  #1594C9;
+  z-index: 14; /* Ensures it's above other elements */
+}.borderyellow {
+  position: absolute; /* Positions relative to the parent’s top-left */
+  top: 50%; /* Aligns with the parent's top */
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 97%; /* La taille que tu veux pour l’enfant */
+    height: 97%;
+  border: 5px solid #074E84;
+  background-color:  #FCE000;
+  z-index: 14; /* Ensures it's above other elements */
+}.bordergreen {
+  position: absolute; /* Positions relative to the parent’s top-left */
+  top: 50%; /* Aligns with the parent's top */
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 97%; /* La taille que tu veux pour l’enfant */
+    height: 97%;
+  border: 5px solid #074E84;
+  background-color: #28CE6C;
+  z-index: 14; /* Ensures it's above other elements */
+}
+    .black {
+      background-color: #FFF; /* Dark gray */
+    }.red {
+      background-color: #F93922; /* Dark gray */
+    }.yellow {
+      background-color: #ffe61F; /* Dark gray */
+    }
+    .blue {
+      background-color: #2EB2FD; /* Dark gray */
+    }
+    .green {
+      background-color: #1EE370; /* Dark gray */
+    }
+    .white {
+      background-color: #ffffff; /* White */
+    }
+    .nobg{
+      border:none;
+    }
+    .trano{
+      width:100%;
+    }.sarya{
+      width:100%;
+    }
+    .maty {
+  position: absolute; /* Positions relative to the parent’s top-left */
+  top: 0; /* Aligns with the parent's top */
+  left: 0;
+  width: 17.7vmin; /* Optional: Makes it larger than the parent */
+  height: 17.7vmin;
+  background-color: rgba(0, 128, 0, 0.8);
+  z-index: 11; /* Ensures it's above other elements */
+}
+    .rela {
+  position: relative; /* Sets the reference point for the child div */
+  
+  background-color: lightgrey;
+  overflow: visible; /* Ensures the child div can extend beyond the parent */
+}
+  </style>
+</head>
+<body>
+
+  
+  <div class="chessboard">
+    <div class="cont"> <div class="bordered"><div class="carre"><div class="psquare"><div class="redcircle"></div></div><div class="psquare"><div class="redcircle"></div></div>
+<div class="psquare"><div class="redcircle"></div></div><div class="psquare"><div class="redcircle"></div></div>
+  </div></div>
+      <div class="cont4"><div class="bordergreen"><div class="carre">
+        
+        <div class="psquare"><div class="greencircle"></div></div><div class="psquare"><div class="greencircle"></div></div>
+<div class="psquare"><div class="greencircle"></div></div><div class="psquare"><div class="greencircle"></div></div>
+
+      </div> </div></div>
+        <div class="cont2"><div class="borderblue"><div class="carre">
+          
+          <div class="psquare"><div class="bluecircle"></div></div><div class="psquare"><div class="bluecircle"></div></div>
+<div class="psquare"><div class="bluecircle"></div></div><div class="psquare"><div class="bluecircle"></div></div>
+
+        </div></div>
+          <div class="cont3"><div class="borderyellow"><div class="carre">
+            
+            <div class="psquare"><div class="yellowcircle"></div></div><div class="psquare"><div class="yellowcircle"></div></div>
+<div class="psquare"><div class="yellowcircle"></div></div><div class="psquare"><div class="yellowcircle"></div></div>
+
+          </div></div>
+          
+        </div>
+     
+    </div>
+    </div>
+  <!-- First Row    EZSTXRYDCFVGBHJNJK?LIKEWTXDYCFG BHNJKEXRYDCTUFY GUHIJXCTUYIGUHIJ?OX67CTVYUBHNJ?57RC68TVUBHNIJCTFVUGYBIUHNXRDCTF -->
+  
+  <div class="square red nobg">1</div>
+  <div class="square red nobg">2</div>
+  <div class="square red nobg">3</div>
+  <div class="square red nobg">4</div>
+  <div class="square red nobg">5</div>
+  <div class="square red nobg">6</div>
+  <div class="square black">7</div>
+  <div class="square white">8</div>
+  
+  <!-- Second Row -->
+  <div class="square white">9</div>
+  <div class="square black">10</div>
+  <div class="square white">11</div>
+  <div class="square black">12</div>
+  <div class="square white">13</div>
+  <div class="square black">14</div>
+  <div class="square white">15</div>
+  <!-- First Row    EZSTXRYDCFVGBHJNJK?LIKEWTXDYCFG BHNJKEXRYDCTUFY GUHIJXCTUYIGUHIJ?OX67CTVYUBHNJ?57RC68TVUBHNIJCTFVUGYBIUHNXRDCTF -->
+  <div class="square red nobg">2</div>
+  
+  <!-- Third Row -->
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square red nobg"></div>
+  <div class="square white"></div>
+  <div class="square green">eg1</div>
+  <div class="square green">sg</div>
+  
+  <!-- Fourth Row -->
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <!-- fin 3333333333333333333333333333333333333333333333333333333333333333333333333333333333 -->
+  
+  <div class="square red nobg">3</div>
+  <div class="square black"></div>
+  
+  <!-- Fifth Row -->
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square red nobg"></div>
+  <div class="square black"><img class="trano" src="res/trano.png"></img></div>
+  <div class="square green">eg2</div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  
+  <!-- Sixth Row -->
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <!-- First Row    EZSTXRYDCFVGBHJNJK?LIKEWTXDYCFG BHNJKEXRYDCTUFY GUHIJXCTUYIGUHIJ?OX67CTVYUBHNJ?57RC68TVUBHNIJCTFVUGYBIUHNXRDCTF -->
+  <div class="square red nobg">4</div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  
+  <!-- Seventh Row -->
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square red nobg"></div>
+  <div class="square white"></div>
+  <div class="square green">eg3</div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  
+  <!-- Eighth Row -->
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <!-- First Row    EZSTXRYDCFVGBHJNJK?LIKEWTXDYCFG BHNJKEXRYDCTUFY GUHIJXCTUYIGUHIJ?OX67CTVYUBHNJ?57RC68TVUBHNIJCTFVUGYBIUHNXRDCTF -->
+  <div class="square red nobg">5</div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <!-- First Row -->
+  <div class="square black"></div>
+  <div class="square red nobg"></div>
+  <div class="square black"></div>
+  <div class="square green">eg4</div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  
+  <!-- Second Row -->
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <!-- First Row    EZSTXRYDCFVGBHJNJK?LIKEWTXDYCFG BHNJKEXRYDCTUFY GUHIJXCTUYIGUHIJ?OX67CTVYUBHNJ?57RC68TVUBHNIJCTFVUGYBIUHNXRDCTF -->
+  <div class="square red nobg">6</div>
+  <div class="square red nobg"></div>
+  <div class="square red nobg"></div>
+  <div class="square red nobg"></div>
+  <div class="square red nobg"></div>
+  
+  <!-- Third Row -->
+  <div class="square red nobg"></div>
+  <div class="square white"></div>
+  <div class="square green">eg5</div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  
+  <!-- Fourth Row -->
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <!-- 777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777-->
+  <div class="square white">7</div>
+  <div class="square red"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  
+  <!-- Fifth Row -->
+  <div class="square" class="rela">
+    <div class="maty">
+    <img class="sarya" src="res/apvony.png"></img>
+  </div>
+</div>
+  <div class="square green">eg6</div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"><img class="trano" src="res/trano.png"></img></div>
+  <div class="square white"></div>
+  <div class="square white"></div>
+<!-- 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888 -->
+  <div class="square black">8</div>
+  <div class="square red"></div>
+  <div class="square red"></div>
+  <div class="square red"></div>
+  <div class="square red"></div>
+  <div class="square red"></div>
+  <div class="square red"></div>
+  
+  
+  <div class="square apvony"><img class="trano" src="res/apvony.png"></img></div>
+  <div class="square yellow"></div>
+  <div class="square yellow"></div>
+  <div class="square yellow"></div>
+  <div class="square yellow"></div>
+  <div class="square yellow"></div>
+  <div class="square yellow"></div>
+  <div class="square white"></div>
+  
+  <!-- 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999-->
+  <div class="square white">9</div>
+  <div class="square black"></div>
+  <div class="square white"><img class="trano" src="res/trano.png"></img></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square blue">eb6</div>
+  <!-- First Row -->
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square yellow"></div>
+  <div class="square black"></div>
+  <!-- 101010101010101010101010101010101010101010010101010101010101010101010101010010101010101001010101 -->
+  <div class="square blue nobg">10</div>
+  
+  <!-- Second Row -->
+  <div class="square blue nobg"></div>
+  <div class="square blue nobg"></div>
+  <div class="square blue nobg"></div>
+  <div class="square blue nobg"></div>
+  <div class="square blue nobg"></div>
+  <div class="square black"></div>
+  <div class="square blue">eb5</div>
+  <div class="square black"></div>
+  
+  <!-- Third Row -->
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <!-- 12121212121212121212121212121212121212121212121212121212121212121212121221 -->
+  <div class="square blue nobg">11</div>
+  <div class="square white"></div>
+  
+  <!-- Fourth Row -->
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square blue">eb4</div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  
+  <!-- Fifth Row -->
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <!-- 12121212121212112121212112121212121212121122 -->
+  <div class="square blue nobg">12</div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  
+  <!-- Sixth Row -->
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square blue">eb3</div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  
+  <!-- Seventh Row -->
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <!-- 1313131313113113131313131313131313131313131331 -->
+  <div class="square blue nobg">13</div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  
+  <!-- Eighth Row -->
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square blue">eb2</div>
+  <div class="square white"><img class="trano" src="res/trano.png"></img></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <!-- 1414141414141414141414141414141414141414114414141414 -->
+  <div class="square blue nobg">14</div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square blue">sb</div>
+  <div class="square blue">eb1</div>
+  <div class="square black"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <!-- 15151515151515151515151515115515515151515515151551515 -->
+  <div class="square blue nobg">15</div>
+  <div class="square blue nobg"></div>
+  <div class="square blue nobg"></div>
+  <div class="square blue nobg"></div>
+  <div class="square blue nobg"></div>
+  <div class="square blue nobg"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  <div class="square black"></div>
+  <div class="square white"></div>
+  <div class="square black"></div>
+  </div>
+<script src="ludoscript.js"></script>
+</body>
+</html>
